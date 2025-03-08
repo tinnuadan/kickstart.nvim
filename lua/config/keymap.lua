@@ -31,8 +31,10 @@ vim.keymap.set('n', '<C-l>', '<C-w><C-l>', { desc = 'Move focus to the right win
 vim.keymap.set('n', '<C-j>', '<C-w><C-j>', { desc = 'Move focus to the lower window' })
 vim.keymap.set('n', '<C-k>', '<C-w><C-k>', { desc = 'Move focus to the upper window' })
 
-
-
 vim.keymap.set("n", "<leader>xf", "<cmd>source %<CR>", {desc = "E[x]ecute current [f]ile"})
 vim.keymap.set("n", "<leader>xl", ":.lua<CR>", {desc = "E[x]ecute current [l]ine"})
 vim.keymap.set("v", "<leader>xs", ":lua<CR>" , {desc = "E[x]ecute current [s]election"})
+
+vim.keymap.set("n", "<leader>tn", "<cmd>tabnew</CR>", {desc = "[T]ab [N]ew"})
+vim.keymap.set("n", "<leader>t]", "<cmd>tabnew</CR>", {desc = "[T]ab Next"})
+vim.keymap.set("n", "<leader>t[", "<cmd>tabnew</CR>", {desc = "[T]ab Prev"})
