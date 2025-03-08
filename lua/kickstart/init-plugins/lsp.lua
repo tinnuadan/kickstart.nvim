@@ -279,12 +279,12 @@ return {
     cmd = { 'ConformInfo' },
     keys = {
       {
-        '<leader>i',
+        '<leader>mf',
         function()
           require('conform').format { async = true, lsp_format = 'fallback' }
         end,
         mode = '',
-        desc = '[I]ndent',
+        desc = '[F]ormat buffer',
       },
     },
     opts = {
@@ -434,4 +434,3 @@ return {
     end,
   },
 }
-
