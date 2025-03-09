@@ -1,4 +1,3 @@
-
 -- [[ Basic Autocommands ]]
 --  See `:help lua-guide-autocommands`
 
@@ -36,7 +35,7 @@ vim.opt.rtp:prepend(lazypath)
 --    :Lazy update
 --
 -- NOTE: Here is where you install your plugins.
-require('lazy').setup({ 
+require('lazy').setup({
 
   -- The following comments only work if you have downloaded the kickstart repo, not just copy pasted the
   -- init.lua. If you want these files, they are in the repository, so you can just download them and
@@ -61,6 +60,7 @@ require('lazy').setup({
   { import = 'kickstart.init-plugins' },
   { import = 'custom.plugins' },
   { import = 'custom.plugins.util' },
+  { import = 'custom.plugins.ui' },
   { import = 'custom.plugins.colourschemes' },
   --
   -- For additional information with loading, sourcing and examples see `:help lazy.nvim-🔌-plugin-spec`
