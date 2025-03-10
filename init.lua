@@ -1,5 +1,5 @@
-require("config.base")
+require 'config.base'
 
-require("config.keymap")
+require 'config.keymap'
 
-require("kickstart.init")
+require 'kickstart.init'

@@ -1,5 +1,5 @@
 return {
--- NOTE: Plugins can also be configured to run Lua code when they are loaded.
+  -- NOTE: Plugins can also be configured to run Lua code when they are loaded.
   --
   -- This is often very useful to both group configuration, as well as handle
   -- lazy loading plugins that don't need to be loaded immediately at startup.
@@ -65,10 +65,12 @@ return {
         { '<leader>f', group = '[F]ind' },
         { '<leader>w', group = '[W]orkspace' },
         { '<leader>m', group = '[M]isc' },
-        { '<leader>t', group = '[T]oggle & Tabs' },
+        { '<leader>t', group = '[T]oggle' },
+        { '<leader>t', group = '[B]uffer' },
         { '<leader>x', group = 'E[x]ecute' },
         { '<leader>h', group = 'Git [H]unk', mode = { 'n', 'v' } },
       },
     },
   },
 }
+

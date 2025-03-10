@@ -35,6 +35,18 @@ vim.keymap.set('n', '<leader>xf', '<cmd>source %<CR>', { desc = 'E[x]ecute curre
 vim.keymap.set('n', '<leader>xl', ':.lua<CR>', { desc = 'E[x]ecute current [l]ine' })
 vim.keymap.set('v', '<leader>xs', ':lua<CR>', { desc = 'E[x]ecute current [s]election' })
 
-vim.keymap.set('n', '<leader>tn', '<cmd>tabnew<CR>', { desc = '[T]ab [N]ew' })
-vim.keymap.set('n', '<leader>t]', '<cmd>tabnew<CR>', { desc = '[T]ab Next' })
-vim.keymap.set('n', '<leader>t[', '<cmd>tabnew<CR>', { desc = '[T]ab Prev' })
+-- vim.keymap.set('n', '<leader>tn', '<cmd>tabnew<CR>', { desc = '[T]ab [N]ew' })
+-- vim.keymap.set('n', '<leader>tx', '<cmd>tabclose<CR>', { desc = '[T]ab Close' })
+-- vim.keymap.set('n', '<leader>t]', '<cmd>+tabnext<CR>', { desc = '[T]ab Next' })
+-- vim.keymap.set('n', '<leader>t[', '<cmd>-tabnext<CR>', { desc = '[T]ab Prev' })
+-- vim.keymap.set('n', '<C-]>', '<cmd>+tabnext<CR>', { remap = true })
+-- vim.keymap.set('n', '<C-[>', '<cmd>tabprevious<CR>', { remap = true })
+
+vim.keymap.set('n', '<leader>bn', '<cmd>tabnew<CR>', { desc = '[B]uffer [N]ew' })
+vim.keymap.set('n', '<leader>bx', '<cmd>BufferClose<CR>', { desc = '[B]uffer [C]lose' })
+vim.keymap.set('n', '<leader>b]', '<cmd>BufferNext<CR>', { desc = 'Next [B]uffer' })
+vim.keymap.set('n', '<leader>b[', '<cmd>BufferPrevious<CR>', { desc = 'Prev [B]uffer' })
+vim.keymap.set('n', '<A-]>', '<cmd>BufferNext<CR>', { remap = true })
+vim.keymap.set('n', '<A-[>', '<cmd>BufferPrevious<CR>', { remap = true })
+
+vim.keymap.set('n', '-', '<CMD>Oil<CR>', { desc = 'Open parent directory' })
