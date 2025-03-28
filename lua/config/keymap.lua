@@ -21,32 +21,53 @@ vim.keymap.set('n', '<left>', '<cmd>echo "Use h to move!!"<CR>')
 vim.keymap.set('n', '<right>', '<cmd>echo "Use l to move!!"<CR>')
 vim.keymap.set('n', '<up>', '<cmd>echo "Use k to move!!"<CR>')
 vim.keymap.set('n', '<down>', '<cmd>echo "Use j to move!!"<CR>')
+vim.keymap.set({ 'n', 'i' }, '<PageUp>', '<cmd>echo "Use Ctrl+U to move!!"<CR>')
+vim.keymap.set({ 'n', 'i' }, '<PageDown>', '<cmd>echo "Use Ctrl+D to move!!"<CR>')
 
 -- Keybinds to make split navigation easier.
 --  Use CTRL+<hjkl> to switch between windows
 --
 --  See `:help wincmd` for a list of all window commands
-vim.keymap.set('n', '<C-h>', '<C-w><C-h>', { desc = 'Move focus to the left window' })
-vim.keymap.set('n', '<C-l>', '<C-w><C-l>', { desc = 'Move focus to the right window' })
-vim.keymap.set('n', '<C-j>', '<C-w><C-j>', { desc = 'Move focus to the lower window' })
-vim.keymap.set('n', '<C-k>', '<C-w><C-k>', { desc = 'Move focus to the upper window' })
+vim.keymap.set({ 'n', 't' }, '<C-h>', '<C-w><C-h>', { desc = 'Move focus to the left window' })
+vim.keymap.set({ 'n', 't' }, '<C-l>', '<C-w><C-l>', { desc = 'Move focus to the right window' })
+vim.keymap.set({ 'n', 't' }, '<C-j>', '<C-w><C-j>', { desc = 'Move focus to the lower window' })
+vim.keymap.set({ 'n', 't' }, '<C-k>', '<C-w><C-k>', { desc = 'Move focus to the upper window' })
 
 vim.keymap.set('n', '<leader>xf', '<cmd>source %<CR>', { desc = 'E[x]ecute current [f]ile' })
 vim.keymap.set('n', '<leader>xl', ':.lua<CR>', { desc = 'E[x]ecute current [l]ine' })
 vim.keymap.set('v', '<leader>xs', ':lua<CR>', { desc = 'E[x]ecute current [s]election' })
 
--- vim.keymap.set('n', '<leader>tn', '<cmd>tabnew<CR>', { desc = '[T]ab [N]ew' })
--- vim.keymap.set('n', '<leader>tx', '<cmd>tabclose<CR>', { desc = '[T]ab Close' })
--- vim.keymap.set('n', '<leader>t]', '<cmd>+tabnext<CR>', { desc = '[T]ab Next' })
--- vim.keymap.set('n', '<leader>t[', '<cmd>-tabnext<CR>', { desc = '[T]ab Prev' })
--- vim.keymap.set('n', '<C-]>', '<cmd>+tabnext<CR>', { remap = true })
--- vim.keymap.set('n', '<C-[>', '<cmd>tabprevious<CR>', { remap = true })
-
-vim.keymap.set('n', '<leader>bn', '<cmd>tabnew<CR>', { desc = '[B]uffer [N]ew' })
-vim.keymap.set('n', '<leader>bx', '<cmd>BufferClose<CR>', { desc = '[B]uffer [C]lose' })
-vim.keymap.set('n', '<leader>b]', '<cmd>BufferNext<CR>', { desc = 'Next [B]uffer' })
-vim.keymap.set('n', '<leader>b[', '<cmd>BufferPrevious<CR>', { desc = 'Prev [B]uffer' })
-vim.keymap.set('n', '<A-]>', '<cmd>BufferNext<CR>', { remap = true })
-vim.keymap.set('n', '<A-[>', '<cmd>BufferPrevious<CR>', { remap = true })
+vim.keymap.set({ 'n', 'i' }, '<A-]>', '<cmd>BufferNext<CR>', { remap = true })
+vim.keymap.set({ 'n', 'i' }, '<A-[>', '<cmd>BufferPrevious<CR>', { remap = true })
+vim.keymap.set({ 'n', 't' }, '<A-t>', '<cmd>tabnew<CR>', { remap = true })
+vim.keymap.set({ 'n', 't' }, '<A-x>', '<cmd>BufferClose<CR>', { remap = true })
 
 vim.keymap.set('n', '-', '<CMD>Oil<CR>', { desc = 'Open parent directory' })
+
+vim.keymap.set('i', '', '<cmd>echo "Use u to undo!"<CR>')
+-- vim.keymap.set({ 'n', 'i', 'v' }, '', '<cmd>echo "Use :w to save!"<CR>')
+
+vim.keymap.set('i', '<C-CR>', '<cmd>echo "Use Ctrl+Y"<CR>')
+
+-- Remap 'n' so that I don't hit it accidentally
+vim.keymap.set('n', 'n', '<Nop>', { noremap = true, silent = true })
+vim.keymap.set('n', '<C-n>', 'n', { noremap = true, silent = true })
+vim.keymap.set('n', '<C-p>', 'N', { noremap = true, silent = true })
+
+local function getFullPath()
+  local filepath = vim.fn.expand '%'
+  return filepath
+end
+
+-- Copy current filepath to clipboard
+local function insertFullPath()
+  vim.fn.setreg('+', getFullPath()) -- write to clippoard
+end
+
+local function printFullPath()
+  local filepath = getFullPath()
+  print(filepath)
+end
+
+vim.keymap.set('n', '<leader>dcf', insertFullPath, { desc = '[D]ocument: [C]opy [P]ath', noremap = true, silent = true })
+vim.keymap.set('n', '<leader>dpf', printFullPath, { desc = '[D]ocument: [C]opy [P]ath', noremap = true, silent = true })
