@@ -15,7 +15,7 @@ vim.g.have_nerd_font = true
 -- Make line numbers default
 vim.opt.number = true
 vim.opt.relativenumber = true
-vim.opt.statuscolumn = "%l (%r)"
+vim.opt.statuscolumn = '%3l (%3r) '
 
 -- Enable mouse mode, can be useful for resizing splits for example!
 vim.opt.mouse = ''
@@ -69,3 +69,4 @@ vim.opt.cursorline = true
 
 -- Minimal number of screen lines to keep above and below the cursor.
 vim.opt.scrolloff = 10
+
