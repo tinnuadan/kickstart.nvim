@@ -73,5 +73,6 @@ local function printFullPath()
   print(filepath)
 end
 
-vim.keymap.set('n', '<leader>dcf', insertFullPath, { desc = '[D]ocument: [C]opy [P]ath', noremap = true, silent = true })
-vim.keymap.set('n', '<leader>dpf', printFullPath, { desc = '[D]ocument: [C]opy [P]ath', noremap = true, silent = true })
+vim.keymap.set('n', '<leader>dpc', insertFullPath, { desc = '[D]ocument: [P]ath: [C]opy', noremap = true })
+vim.keymap.set('n', '<leader>dpp', printFullPath, { desc = '[D]ocument: [P]ath: [P]rint', noremap = true })
+
