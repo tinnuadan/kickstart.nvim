@@ -76,3 +76,21 @@ end
 vim.keymap.set('n', '<leader>dpc', insertFullPath, { desc = '[D]ocument: [P]ath: [C]opy', noremap = true })
 vim.keymap.set('n', '<leader>dpp', printFullPath, { desc = '[D]ocument: [P]ath: [P]rint', noremap = true })
 
+-- Append before last character if line ends with ;
+local function appendAtEndOfLine()
+  local currentLine = vim.api.nvim_get_current_line()
+  local lastChar = string.sub(currentLine, -1)
+  -- print(lastChar)
+  local result = 'A'
+  if lastChar == ';' then
+    result = '$i'
+  end
+  return result
+end
+
+vim.keymap.set('n', '<C-A>', function()
+  local k = appendAtEndOfLine()
+  vim.api.nvim_feedkeys(k, 'n', true)
+end, { noremap = true, silent = true })
+
+-- end of file
