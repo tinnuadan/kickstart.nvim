@@ -49,6 +49,10 @@ vim.keymap.set('i', '', '<cmd>echo "Use u to undo!"<CR>')
 
 vim.keymap.set('i', '<C-CR>', '<cmd>echo "Use Ctrl+Y"<CR>')
 
+-- beginning / end of line
+vim.keymap.set('n', 'gh', '_', { desc = 'Beginning of line' })
+vim.keymap.set('n', 'gl', '$', { desc = 'End of line' })
+
 -- Remap 'n' so that I don't hit it accidentally
 vim.keymap.set('n', 'n', '<Nop>', { noremap = true, silent = true })
 vim.keymap.set('n', '<C-n>', 'n', { noremap = true, silent = true })
