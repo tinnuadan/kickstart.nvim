@@ -4,7 +4,12 @@ local state = {
     win = -1,
     job_id = 0,
   },
+  editor = {
+    win = -1,
+  },
 }
+
+local TerminalModule = {}
 
 local function create_terminal(opts)
   opts = opts or {}
@@ -43,8 +48,9 @@ local function create_terminal(opts)
   return { buf = buf, win = win }
 end
 
-local toggle_terminal = function()
+TerminalModule.toggle_terminal = function()
   if not vim.api.nvim_win_is_valid(state.terminal.win) then
+    state.editor.win = vim.api.nvim_get_current_win()
     state.terminal = create_terminal { buf = state.terminal.buf }
     if vim.bo[state.terminal.buf].buftype ~= 'terminal' then
       vim.cmd.terminal()
@@ -59,7 +65,19 @@ local toggle_terminal = function()
   vim.cmd 'normal i'
 end
 
-local function send_command(opts)
+TerminalModule.auto_open_build_terminal = function()
+  if not vim.api.nvim_win_is_valid(state.terminal.win) then
+    state.editor.win = vim.api.nvim_get_current_win()
+    state.terminal = create_terminal { buf = state.terminal.buf }
+    if vim.bo[state.terminal.buf].buftype ~= 'terminal' then
+      vim.cmd.terminal()
+    end
+    state.terminal.job_id = vim.bo.channel
+  end
+  -- vim.cmd 'normal i'
+end
+
+TerminalModule.send_command = function(opts)
   opts = opts or {}
   local cmd = opts.cmd or nil
   if not cmd then
@@ -71,12 +89,44 @@ local function send_command(opts)
   vim.api.nvim_chan_send(state.terminal.job_id, cmd)
 end
 
-vim.api.nvim_create_user_command('ToggleTerminal', toggle_terminal, {})
+TerminalModule.write_in_terminal = function(opts)
+  opts = opts or {}
+  local cmd = opts.cmd or nil
+  if not cmd then
+    return
+  end
+  if not vim.api.nvim_win_is_valid(state.terminal.win) then
+    return
+  end
+  vim.api.nvim_feedkeys(cmd, 't', false)
+end
+
+TerminalModule.focus_editor_window = function()
+  if not vim.api.nvim_win_is_valid(state.terminal.win) then
+    return
+  end
+  if vim.api.nvim_get_current_win() == state.editor.win then
+    return
+  end
+  vim.api.nvim_set_current_win(state.editor.win)
+  -- local key = vim.api.nvim_replace_termcodes('<C-w>w', true, false, true)
+  -- vim.api.nvim_feedkeys(key, 'n', false)
+end
+
+vim.api.nvim_create_user_command('ToggleTerminal', TerminalModule.toggle_terminal, {})
+vim.api.nvim_create_user_command('OpenBuildTerminal', TerminalModule.auto_open_build_terminal, {})
+
+vim.api.nvim_create_user_command('BuildGeneric', function()
+  TerminalModule.auto_open_build_terminal()
+  TerminalModule.send_command { cmd = 'sdk-make build install -j14; check-task $?\n' }
+  -- TerminalModule.write_in_terminal { cmd = 'sdk-make build install -j14; check-task $?\n' }
+  TerminalModule.focus_editor_window()
+end, {})
 
 -- Example usage:
 -- Create a floating window with default dimensions
 -- vim.api.nvim_create_user_command('toggle_terminal', toggle_terminal, {})
-vim.keymap.set({ 'n', 't' }, '<leader>tt', toggle_terminal, { desc = '[T]oggle [T]erminal' })
+vim.keymap.set({ 'n', 't' }, '<leader>tt', TerminalModule.toggle_terminal, { desc = '[T]oggle [T]erminal' })
 --
 -- vim.keymap.set('n', '<leader>bg', function()
 -- send_command { cmd = "echo 'Hello World'\n" }
